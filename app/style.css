@@ -1,0 +1,125 @@
+html,body
+{
+  width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+table
+{
+  width: 100%;
+  border-collapse:collapse;
+
+}
+thead
+{
+  border-bottom-style: solid;
+  border-bottom-width:2px;
+  border-color:#031412;
+}
+td, th {
+  width: 25%;
+  padding: 10px 10px;
+  text-align: left;
+}
+th
+{
+  background-color: #3b3a36;
+  color: #fff;
+}
+
+tbody > tr
+{
+  border-bottom-style: solid;
+  border-bottom-width:1px;
+  border-color:#031412;
+}
+tbody > tr:nth-child(even)
+{
+  background: #eaf4f2
+}
+tbody > tr:nth-child(odd)
+{
+  background: #E7EDEE
+}
+input,select
+{
+
+  padding: 5px;
+  margin-bottom: 0.5em;
+  border: 0.1em solid #CCC;
+  border-radius: 2px;
+  /*color: #474747;*/
+}
+input:focus ,select:focus
+{
+  outline: 0.1em solid #716d6d;
+     background: #d2e7e8;
+}
+.button {
+  display: inline-block;
+  margin: 0 5px 0 0;
+  padding: 5px 15px;
+  cursor:pointer;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.button:focus {
+  outline: none
+}
+.button-success
+{
+  color: #fff;
+  background-color: #6496c8;
+}
+.button-success:hover
+{
+  background-color: #29639d;
+}
+.button-cancel
+{
+  color: #fff;
+  background-color: #d5b21f;
+}
+.button-cancel:hover
+{
+  background-color: #9f9a18;
+}
+.button-edit
+{
+  color: #fff;
+  background-color: #27b658;
+}
+.button-edit:hover
+{
+  background-color: #098537;
+}
+.button-delete
+{
+  color: #fff;
+  background-color: #d51f66;
+}
+.button-delete:hover
+{
+  background-color: #6f0632;
+}
+#content
+{
+   margin: 0 auto;
+   width:80%;
+}
+.card
+{
+  margin-bottom: 20px;
+}
+.clear-block
+{
+  clear:both;
+}
+.form
+{
+  width:100%;
+}
+.form-content
+{
+  float:left;
+  width:25%;
+}

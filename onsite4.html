@@ -1,0 +1,87 @@
+<html>
+  <script src="underscore-min.js" ></script>
+  <script type="text/javascript">
+    function findDifference(initSet,negativeSet)
+    {
+      var initIndex=0;
+      var negativeIndex=0;
+      var resultIndex=0;
+      var tmpInitValue=0;
+      var result=[];
+      result[resultIndex]=[];
+      var resultValue = 0;
+      var shouldCreateNewResultArray ;
+      while (initIndex < initSet.length)
+      {
+        resultValue = initSet[initIndex];
+        shouldCreateNewResultArray = resultValue - tmpInitValue > 1 && result[resultIndex].length >0;
+        if( shouldCreateNewResultArray )
+          result[++resultIndex]=[];
+        if( initSet[initIndex] < negativeSet[negativeIndex] )
+        {
+          result[resultIndex].push( resultValue )
+          tmpInitValue   = resultValue;
+        }
+        else if( initSet[initIndex] > negativeSet[negativeIndex] )
+        {
+          result[resultIndex].push( resultValue )
+          if( negativeIndex < negativeSet.length -1 ) // is not last negativeindex
+              negativeIndex++;
+          tmpInitValue   = resultValue;
+        }
+        else
+        {
+          if( negativeIndex < negativeSet.length -1 ) // is not last negativeindex
+            negativeIndex++;
+        }
+        initIndex++;
+      }
+      var lastResultSetIsEmpty = result[result.length - 1].length == 0
+      if( lastResultSetIsEmpty )
+        result.pop();
+      // console.log('summary result >>>>>>')
+      // console.log(result);
+      return result;
+    }
+    function findDiffSet(initSet,negativeSet)
+    {
+      var joinSet = [];
+      var joinNegative=[];
+      initSet.map(function(set){
+        set.map( function(val){
+          if(joinSet.indexOf(val) == -1)
+            joinSet.push(val);
+        })
+      })
+
+      negativeSet.map(function(set){
+        set.map( function(val){
+          if(joinNegative.indexOf(val) === -1)
+            joinNegative.push(val);
+        })
+      })
+      // sort array
+      joinSet = joinSet.sort(function(a,b){ return a-b});
+      joinNegative = joinNegative.sort(function(a,b){return a-b});
+
+      var diffResults = findDifference(joinSet,joinNegative);
+      return diffResults;
+
+    }
+    var test1 = [ _.range(1, 6), _.range(2,21) ]
+    var test1negative = [ _.range(3,8) ]
+    console.log( findDiffSet(test1, test1negative) );
+
+    var test2 = [ _.range(3, 16), _.range(2,21),_.range(5,11) ]
+    var test2negative = [ _.range(3,6),_.range(8,11) ]
+    console.log( findDiffSet(test2, test2negative) );
+
+    var test3 = [ _.range(1, 8), _.range(5,21),_.range(25,101) ]
+    var test3negative = [ _.range(6,10),_.range(8,12),_.range(30,51) ]
+    console.log( findDiffSet(test3, test3negative) );
+
+    var test4 = [ _.range(1, 8), _.range(10,21),_.range(25,101) ]
+    var test4negative = [ _.range(2,6),_.range(11,21),_.range(30,51) ]
+    console.log(findDiffSet(test4, test4negative) );
+  </script>
+</html>

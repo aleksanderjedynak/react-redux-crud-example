@@ -1,0 +1,36 @@
+<html>
+<script src="underscore-min.js" ></script>
+  <script type="text/javascript">
+    function findIntersection(initSet,negativeSet)
+    {
+      var joinNegative=[];
+      var resultSets = [];
+      negativeSet.map(function(set){
+        set.map( function(val){
+          if(joinNegative.indexOf(val) === -1)
+            joinNegative.push(val);
+        })
+      })
+
+      initSet.map(function(set){
+        var resultSet = set.filter( function(val,index){
+          return joinNegative.indexOf(val) === -1;
+        })
+        resultSets.push(resultSet);
+      })
+      console.log(resultSets);
+      // return resultSets;
+    }
+    var test1 = [ _.range(1, 6), _.range(2,21) ]
+    var test1negative = [ _.range(3,8) ]
+    findIntersection(test1, test1negative);
+
+    var test2 = [ _.range(3, 16), _.range(2,21),_.range(5,11) ]
+    var test2negative = [ _.range(3,8),_.range(8,11) ]
+    findIntersection(test2, test2negative);
+
+    // console.log(test1);
+    // findIntersection([ [1,2,3],[1,2,3,4,5]]  ,[ [3,4,5], [4,7,8] ] );
+    // findIntersection([ [1,2,3],[1,2,3,4,5]]  ,[ [3,4,5], [4,7,8] ] );
+  </script>
+</html>

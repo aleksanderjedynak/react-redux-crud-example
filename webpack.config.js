@@ -1,0 +1,26 @@
+
+module.exports = {
+  entry: './app/app.js',
+  output: {
+     path: __dirname,
+     filename: './public/bundle.js'
+  },
+  module:{
+    loaders:[
+      {
+        loader: 'babel',
+        test : /\.js$/,
+        exclude: /node_modules/,
+        include: __dirname,
+        query: {
+            presets: ['react', 'es2015']
+        }
+      },
+      {
+        test: /\.css$/,
+        loaders: ['style', 'css'],
+        include: __dirname,
+      }
+    ]
+  }
+}

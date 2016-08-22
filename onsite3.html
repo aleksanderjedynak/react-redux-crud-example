@@ -1,0 +1,131 @@
+<html>
+  <script src="underscore-min.js" ></script>
+  <script type="text/javascript">
+    function findDifference(initSet,negativeSet)
+    {
+      var initIndex=0;
+      var negativeIndex=0;
+      var resultIndex=0;
+      var result=[];
+      var valueIsEqual = false;
+      result[resultIndex]=[];
+      var tmpResultIndex=0;
+      var tmpInitValue=0;
+      while(negativeSet[negativeIndex] < initSet[0])
+          negativeIndex++;
+      while (initIndex < initSet.length)
+      {
+        if( initSet[initIndex] < negativeSet[negativeIndex] )
+        {
+          var resultValue = initSet[initIndex];
+          if(resultValue - tmpInitValue > 1 && result[resultIndex].length >0 )
+            result[++resultIndex]=[];
+          result[resultIndex].push( resultValue )
+          tmpResultIndex = resultIndex;
+          tmpInitValue   = initSet[initIndex];
+          initIndex++;
+        }
+        else if( initSet[initIndex] > negativeSet[negativeIndex] )
+        {
+          var resultValue = initSet[initIndex];
+          if(resultValue - tmpInitValue > 1 && result[resultIndex].length >0 )
+            result[++resultIndex]=[];
+          tmpInitValue   = initSet[initIndex];
+          result[resultIndex].push( resultValue )
+          if(negativeIndex < (negativeSet.length -1) )
+              negativeIndex++;
+          else
+              initIndex++;
+          tmpResultIndex = resultIndex;
+        }
+        else
+        {
+            if( resultIndex == tmpResultIndex  && result[resultIndex].length >0)
+            {
+               resultIndex++;
+                result[resultIndex]=[];
+            }
+
+           initIndex++;
+            if( initIndex == initSet.length && result[resultIndex].length == 0 )
+               result.pop();
+            if(negativeIndex < (negativeSet.length -1) )
+              negativeIndex++;
+        }
+
+      }
+      console.log('summary result >>>>>>')
+      console.log(result);
+      return result;
+    }
+    function findIntersection(initSet,negativeSet)
+    {
+      var joinSet = [];
+      var joinNegative=[];
+      var resultSets = [];
+      // console.log(initSet)
+      initSet.map(function(set){
+        set.map( function(val){
+          if(joinSet.indexOf(val) == -1)
+            joinSet.push(val);
+        })
+      })
+
+      negativeSet.map(function(set){
+        set.map( function(val){
+          if(joinNegative.indexOf(val) === -1)
+            joinNegative.push(val);
+        })
+      })
+      var resultSet = [];
+      var resultIndex=0;
+      resultSet[resultIndex]=[]
+      joinSet = joinSet.sort(function(a,b){ return a-b});
+      joinNegative = joinNegative.sort(function(a,b){return a-b});
+
+      var res = joinSet.filter( function( set ){
+          return joinNegative.indexOf(set) === -1;
+      });
+      findDifference(joinSet,joinNegative);
+      var tmp = res[0];
+      res.map(function(set,index){
+          if(set-tmp == 1 || set-tmp == 0)
+          {
+             resultSet[resultIndex].push(set)
+          }
+          else {
+
+            resultIndex++;
+            resultSet[resultIndex]=[]
+            resultSet[resultIndex].push(set)
+          }
+       tmp=set;
+      })
+      return resultSet;
+
+    }
+    var test1 = [ _.range(1, 6), _.range(2,21) ]
+    var test1negative = [ _.range(15,28) ]
+    // console.log( findIntersection(test1, test1negative) );
+
+    test1 = [ _.range(3, 6), _.range(9,21) ]
+    test1negative = [ _.range(1,5) ]
+    console.log( findIntersection(test1, test1negative) );
+
+    test1 = [ _.range(3, 6), _.range(2,21) ]
+    test1negative = [ _.range(15,25) ]
+    // console.log( findIntersection(test1, test1negative) );
+
+    var test2 = [ _.range(3, 16), _.range(2,21),_.range(5,11) ]
+    var test2negative = [ _.range(3,6),_.range(8,11) ]
+    // console.log( findIntersection(test2, test2negative) );
+
+    var test3 = [ _.range(1, 8), _.range(5,21),_.range(25,101) ]
+    var test3negative = [ _.range(6,10),_.range(8,12),_.range(30,51) ]
+    // console.log( findIntersection(test3, test3negative) );
+
+    var test4 = [ _.range(1, 8), _.range(10,21),_.range(25,101) ]
+    var test4negative = [ _.range(2,6),_.range(11,21),_.range(30,51) ]
+    // console.log(findIntersection(test4, test4negative) );
+  </script>
+</html>
